@@ -9,12 +9,6 @@ node('ubuntu') {
         app = docker.build("nyamanyama/snake")
     }
 
-    stage('Post-to-dockerhub') {
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub_creds') {
-            app.push("latest")
-        }
-    }
-
     stage('Pull-image-server') {
         sh "docker-compose down"
         sh "docker-compose up -d"
